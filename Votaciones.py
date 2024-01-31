@@ -1,5 +1,5 @@
 dpi=input("ingresa tu dpi")
-cantidad = len(dpi)
+kcantidad = len(dpi)
 if cantidad==13:
     print("dpi valido")
     print("por quien quieres votar?")
@@ -17,3 +17,6 @@ if cantidad==13:
         print("votaste para alcalde verde (E)")
     elif voto2=="F":
         print("votaste para alcalde naranja (F)")
+
+
+borrar la k de kcantidad de la linea 3
