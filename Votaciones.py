@@ -1,6 +1,8 @@
 dpi=input("ingresa tu dpi")
-kcantidad = len(dpi)
-if cantidad==13:
+cantidad = len(dpi)
+if cantidad<13:
+    print("dpi no valido")
+elif cantidad==13:
     print("dpi valido")
     print("por quien quieres votar?")
     voto1=input("Votar por precidente rojo (A) azul (B)")
@@ -9,6 +11,8 @@ if cantidad==13:
         print("votaste para presidente rojo (A)")
     elif voto1=="B":
         print("votaste para presidente azul (B)")
+    else:
+        print("voto invalido hacia presidente")
     if voto2=="C":
         print("votaste para alcalde rojo (C)")
     elif voto2=="D":
@@ -17,6 +21,14 @@ if cantidad==13:
         print("votaste para alcalde verde (E)")
     elif voto2=="F":
         print("votaste para alcalde naranja (F)")
+    else:
+        print("voto ivalido hacia alcalde")
+    confirmacion=input("desea guardar sus votos? (si)(no)")
+    if confirmacion =="si":
+        print("votos guardados")
+    elif confirmacion =="no":
+        print("votos eliminados vuelve a votar")
+    
 
 
-borrar la k de kcantidad de la linea 3
+   
