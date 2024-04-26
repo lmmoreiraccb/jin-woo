@@ -43,4 +43,9 @@ def velocidad1(distancia, tiempo):
     result = distancia/tiempo
     print("la velocidad seria de: "), str(result)
 
+int_velocidad=float(input("ingrese la distancia: "))
+int_tiempo=float(input("Ingrese el tiempo: "))
+found_vel(int_velocidad, int_tiempo)
+#esto va en el menu
+
     
