@@ -8,7 +8,7 @@ screen_width = 600
 screen_height = 480
 screen = pygame.display.set_mode((screen_width, screen_height))
 
-estado = "Pantalla inicial"
+estado = "instrucciones"
 
 running = True
 while running:
@@ -18,7 +18,9 @@ while running:
         if event.type== pygame.KEYDOWN:
             if event.key == pygame.K_q:
                 print(estado)
-                if estado == "Pantalla inicial":
+                if estado == "instrucciones":
+                    estado = "Pantalla inicial"
+                elif estado == "Pantalla inicial":
                       estado = "Pantalla 2"
                 elif estado == "Pantalla 2": 
                     estado = "Pantalla 3"
@@ -82,12 +84,12 @@ while running:
                 
      
 
-                
-
-  
-
-
-    if estado == "Pantalla inicial":
+    if estado == "instrucciones":
+        instrucciones = pygame.image.load("instrucciones.png")
+        screen.blit(instrucciones,(0,0))
+        pygame.display.update()
+                   
+    elif estado == "Pantalla inicial":
         image = pygame.image.load("inicio2.png")
         image=pygame.transform.scale(image, (screen_width, screen_height))
         screen.blit(image,(0,0))
