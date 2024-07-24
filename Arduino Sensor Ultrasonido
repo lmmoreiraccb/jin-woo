@@ -1,0 +1,65 @@
+// Código C++ para medir distancia con sensor ultrasónico y controlar LED
+
+// Definición de pines
+int echoPin = 10; // Pin del sensor ultrasónico (echo)
+int triggerPin = 11; // Pin de trigger del sensor ultrasónico
+int ledPin = 13; // Pin del LED
+
+// Función para leer la distancia ultrasónica
+long readUltrasonicDistance() {
+  // Configurar el pin de trigger como salida
+  pinMode(triggerPin, OUTPUT);
+ 
+  // Enviar pulso de trigger bajo por 2 microsegundos
+  digitalWrite(triggerPin, LOW);
+  delayMicroseconds(2);
+ 
+  // Enviar pulso de trigger alto por 10 microsegundos
+  digitalWrite(triggerPin, HIGH);
+  delayMicroseconds(10);
+ 
+  // Enviar pulso de trigger bajo de nuevo
+  digitalWrite(triggerPin, LOW);
+ 
+  // Configurar el pin de echo como entrada
+  pinMode(echoPin, INPUT);
+ 
+  // Medir la duración del pulso de echo en microsegundos
+  long pulseDuration = pulseIn(echoPin, HIGH);
+ 
+  // Devolver la duración del pulso de echo
+  return pulseDuration;
+}
+
+// Función de configuración
+void setup() {
+  // Iniciar comunicación serial para depuración
+  Serial.begin(9600);
+ 
+  // Configurar el pin del LED como salida
+  pinMode(ledPin, OUTPUT);
+}
+
+// Bucle principal
+void loop() {
+  // Leer la distancia ultrasónica y convertirla en centímetros
+  long pulseDuration = readUltrasonicDistance();
+  float distance = 0.01723 * pulseDuration; // Factor de conversión específico del sensor
+ 
+  // Imprimir la distancia en la pantalla serial (opcional)
+  Serial.print("Distancia: ");
+  Serial.print(distance);
+  Serial.println(" cm");
+ 
+  // Controlar el LED en función de la distancia
+  if (distance < 10) {
+    // Si la distancia es menor a 10 cm, encender el LED
+    digitalWrite(ledPin, HIGH);
+  } else {
+    // Si la distancia es mayor o igual a 10 cm, apagar el LED
+    digitalWrite(ledPin, LOW);
+  }
+ 
+  // Esperar 100 milisegundos antes de repetir la medición y el control del LED
+  delay(100);
+}
