@@ -2,213 +2,131 @@ import pygame
 import sys
 pygame.init()
 
-
-
 screen_width = 600
 screen_height = 480
 screen = pygame.display.set_mode((screen_width, screen_height))
 
 estado = "instrucciones"
+def cargar(nombre):
+    img = pygame.image.load(nombre)
+    screen.blit(img, (0,0))
+    pygame.display.update()
 
+# Mapeo de estados y teclas a nuevos estados
+state_transitions = {
+    ('instrucciones', pygame.K_q): "Pantalla inicial",
+    ('Pantalla inicial', pygame.K_q): "Pantalla 2",
+    ('Pantalla 2', pygame.K_q): "Pantalla 3",
+    ('Pantalla 3', pygame.K_1): "Pantalla 4",
+    ('Pantalla 3', pygame.K_2): "Pantalla 6",
+    ('Pantalla 4', pygame.K_q): "Pantalla 5",
+    ('Pantalla 5', pygame.K_q): "Pantalla 7",
+    ('Pantalla 6', pygame.K_q): "Pantalla 7",
+    ('Pantalla 7', pygame.K_1): "luchar",
+    ('Pantalla 7', pygame.K_2): "noluchar",
+    ('luchar', pygame.K_q): "luchar1",
+    ('luchar1', pygame.K_q): "opciondaga1",
+    ('noluchar', pygame.K_q): "noluchar1",
+    ('opciondaga1', pygame.K_1): "luchar2",
+    ('opciondaga1', pygame.K_2): "nonluchar",
+    ('nonluchar', pygame.K_q): "nonluchar2",
+    ('luchar2', pygame.K_q): "luchar3",
+    ('luchar3', pygame.K_q): "luchar4",
+    ('noluchar1', pygame.K_q): "opnoluchar1",
+    ('opnoluchar1', pygame.K_1): "redencion",
+    ('opnoluchar1', pygame.K_2): "reflexion1",
+    ('reflexion1', pygame.K_q): "reflexion2"
+}
+# Inicializar Pygame y el estado
+pygame.init()
 running = True
+estado = "instrucciones"
+
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        if event.type== pygame.KEYDOWN:
-            if event.key == pygame.K_q:
-                print(estado)
-                if estado == "instrucciones":
-                    estado = "Pantalla inicial"
-                elif estado == "Pantalla inicial":
-                      estado = "Pantalla 2"
-                elif estado == "Pantalla 2": 
-                    estado = "Pantalla 3"
-            if event.key == pygame.K_1:
-                if estado == "Pantalla 3":
-                    estado = "Pantalla 4"
-            if event.key == pygame.K_2:
-                if estado == "Pantalla 3":
-                    estado = "Pantalla 6"
-            if event.key == pygame.K_q:
-                if estado == "Pantalla 4":
-                     estado = "Pantalla 5"
-                elif estado == "Pantalla 5":
-                    estado = "Pantalla 7"
-                elif estado == "Pantalla 6":
-                     estado = "Pantalla 7"
-            if event.key == pygame.K_1:
-                if estado == "Pantalla 7":
-                    estado = "luchar"
-            if event.key == pygame.K_2:
-                if estado == "Pantalla 7":
-                    estado = "noluchar"
-            if event.key == pygame.K_q:
-                if estado == "luchar":
-                    estado = "luchar1"
-                elif estado == "luchar1":
-                   estado = "opciondaga1"
-                if estado == "noluchar":
-                    estado = "noluchar1"
-            if event.key == pygame.K_1:
-                if estado == "opciondaga1":
-                    estado = "luchar2"
-            if event.key == pygame.K_2:
-                if estado == "opciondaga1":
-                    estado = "nonluchar" 
-            if event.key == pygame.K_q:        
-                if estado == "nonluchar":
-                    estado = "nonluchar2"
-                if estado == "luchar2":
-                    estado = "luchar3"
-                if estado == "luchar3":
-                    estado = "luchar4"
-                if estado == "noluchar1":
-                    estado = "opnoluchar1"
-            if event.key == pygame.K_1:
-                if estado == "opnoluchar1":
-                    estado = "redencion"
-            if event.key == pygame.K_2:
-                if estado == "opnoluchar1":
-                    estado = "reflexion1"
-            if event.key == pygame.K_q:
-                if estado == "reflexion1":
-                    estado = "reflexion2"
-            
-                          
-
-                
-                 
-                
-                    
-                
-     
-
+        if event.type == pygame.KEYDOWN:
+            # Obtén el nuevo estado usando el mapeo de estados y teclas
+            new_state = state_transitions.get((estado, event.key))
+            if new_state:
+                print(new_state)
+                estado = new_state
+          
     if estado == "instrucciones":
-        instrucciones = pygame.image.load("instrucciones.png")
-        screen.blit(instrucciones,(0,0))
-        pygame.display.update()
+        cargar("instrucciones.png")        
                    
     elif estado == "Pantalla inicial":
         image = pygame.image.load("inicio2.png")
         image=pygame.transform.scale(image, (screen_width, screen_height))
-        screen.blit(image,(0,0))
-        pygame.display.update()        
+        screen.blit(image,(0,0))        
 
     elif estado == "Pantalla 2":
-        image1 = pygame.image.load("Unsabio.png")
-        screen.blit(image1,(0,0))
-        pygame.display.update()
-
+        cargar("Unsabio.png")
+        
     elif estado == "Pantalla 3":
-         image2 = pygame.image.load("Image2.png")
-         screen.blit(image2,(0,0))
-         pygame.display.update()
-
+         cargar("Image2.png")
+         
     elif estado == "Pantalla 4":
-         sabioop1 = pygame.image.load("sabioop1.png")
-         screen.blit(sabioop1,(0,0))
-         pygame.display.update()
-         
+         cargar("sabioop1.png")
+               
     elif estado == "Pantalla 5":
-         sabioop12 = pygame.image.load("sabioop12.png")
-         screen.blit(sabioop12,(0,0))
-         pygame.display.update()
-
-    elif estado == "Pantalla 6":
-         sabioop2 = pygame.image.load("sabioop2.png")
-         screen.blit(sabioop2, (0,0))
-         pygame.display.update()
+         cargar("sabioop12.png")
          
+    elif estado == "Pantalla 6":
+         cargar("sabioop2.png")
+                
     elif estado == "Pantalla 7":
-        desafio = pygame.image.load("desafio1.png")
-        screen.blit(desafio,(0,0))
-        pygame.display.update()
-
+        cargar("desafio1.png")
+       
     elif estado == "luchar":
-        luchar = pygame.image.load("luchar.png")
-        screen.blit(luchar,(0,0))
-        pygame.display.update()
-
+        cargar("luchar.png")
+        
     elif estado == "luchar1":
-        luchar1 = pygame.image.load("luchar1.png")
-        screen.blit(luchar1,(0,0))
-        pygame.display.update()
-
+        cargar("luchar1.png")
+        
     elif estado == "noluchar":
-        noluchar = pygame.image.load("noluchar.png")
-        screen.blit(noluchar,(0,0))
-        pygame.display.update()
+        cargar("noluchar.png")
 
     elif estado == "noluchar1":
-        noluchar1 = pygame.image.load("noluchar1.png")
-        screen.blit(noluchar1,(0,0))
-        pygame.display.update()
-
+        cargar("noluchar1.png")
+        
     elif estado == "opciondaga1":
-        opciondaga1 = pygame.image.load("opciondaga1.png")
-        screen.blit(opciondaga1,(0,0))
-        pygame.display.update()
-
+        cargar("opciondaga1.png")
+        
     elif estado == "nonluchar":
-        nonluchar = pygame.image.load("nonluchar.png")
-        screen.blit(nonluchar,(0,0))
-        pygame.display.update()
-
+        cargar("nonluchar.png")
+        
     elif estado == "nonluchar2":
-        nonluchar2 = pygame.image.load("nonluchar2.png")
-        screen.blit(nonluchar2,(0,0))
-        pygame.display.update()
+        cargar("nonluchar2.png")
            
-    
     elif estado =="luchar2":
-        luchar2 = pygame.image.load("luchar2.png")
-        screen.blit(luchar2,(0,0))
-        pygame.display.update()
-
+        cargar("luchar2.png")
+        
     elif estado == "luchar3":
-        luchar3 = pygame.image.load("luchar3.png")
-        screen.blit(luchar3,(0,0))
-        pygame.display.update()
-
+        cargar("luchar3.png")
+        
     elif estado == "luchar4":
-        luchar4 = pygame.image.load("luchar4.png")
-        screen.blit(luchar4,(0,0))
-        pygame.display.update()
-        
+        cargar("luchar4.png")
+               
     elif estado == "opnoluchar1":
-        opnoluchar1 = pygame.image.load("opnoluchar1.png")
-        screen.blit(opnoluchar1,(0,0))
-        pygame.display.update()
-    
+        cargar("opnoluchar1.png")
+           
     elif estado == "redencion":
-        redencion = pygame.image.load("redencion.png")
-        screen.blit(redencion,(0,0))
-        pygame.display.update()
-
-    elif estado == "reflexion1":
-        reflexion1 = pygame.image.load("reflexion1.png")
-        screen.blit(reflexion1,(0,0))
-        pygame.display.update()
-
-    elif estado == "reflexion2":
-        reflexion2 = pygame.image.load("reflexion2.png")
-        screen.blit(reflexion2,(0,0))
-        pygame.display.update()
-
-    
-
- 
-    
+        cargar("redencion.png")
         
-
-
+    elif estado == "reflexion1":
+        cargar("reflexion1.png")       
+    
+    elif estado == "reflexion2":
+        cargar("reflexion2.png")
+        
     pygame.display.flip()    
-
 #cierra pygame
 pygame.quit()
 sys.exit() 
-
+#de 210 a 129
+#-81 lineas de codigo
 
 
 
